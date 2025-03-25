@@ -1,0 +1,16 @@
+# Définitions des rôles de la faction **Les Immortels** :
+
+_**Chefs**_ :
+- Je ne pense pas avoir besoin d'expliquer le rôle des chefs.
+
+_**Co-Chefs**_ :
+- Accès à tout sauf aux bases privées.
+- Remplacent les chefs en leurs absence.
+- Ne peut pas bannir définitivement un membre (ou autre rôle) de la faction. Seulement temporairement.
+
+_**Membres**_ :
+- Respecter les règles écrites dans le livre.
+
+_**Bannis**_ :
+- N'ont pas le droit d'être dans notre base, où du moins, accompagnés par minimum 3 personnes et seulement sous l'accord des deux chefs, et que l'un des chefs soit connecté.
+- N'ont pas le droit de se faire passer pour un membre.
