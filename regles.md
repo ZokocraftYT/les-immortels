@@ -26,3 +26,5 @@
 
 ### 6. Notes :
 - A. Si un joueur de la faction a besoin d'aide, essayer de l'aider au maximum.
+
+[Retour](./README.md)
