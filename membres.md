@@ -2,7 +2,6 @@
 
 _**Les Chefs**_ :
 - Animal7843
----
 - zokocraftYT
 
 _**Les Co-Chefs**_ :
@@ -10,20 +9,14 @@ _**Les Co-Chefs**_ :
 
 _**Les Membres**_ :
 - jamiaugier
----
 - Shunoux
----
 - SalazarIsAHero
----
 - Demonios (non officiel)
----
 - Lililoulou33
 
 _**Alliés**_ :
 - .Skycubb
----
 - soso_sonic
----
 - iglesias79fr
 
 _**Les Bannis Temporairement**_ :
@@ -31,5 +24,6 @@ _**Les Bannis Temporairement**_ :
 
 _**Les Bannis def**_ :
 - Nael
----
 - TRADGERlll
+
+[Retour](./README.md)
