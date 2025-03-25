@@ -20,5 +20,7 @@ _**Bonnes actions énormes**_ :
     - A accepté la faction Les Immortels de construire une base proche de la sienne (Cet acte restera dans l'histoire de la faction à tout jamais 🥹).
 - **zokocraftYT**. <br>Actions :
     - A construie une énorme salle des coffres.
+- **jamieaugier**. <br>Actions :
+    - A construie un échequier dans minecraft.
  
 [Retour](./README.md)
