@@ -14,3 +14,5 @@ _**Membres**_ :
 _**Bannis**_ :
 - N'ont pas le droit d'être dans notre base, où du moins, accompagnés par minimum 3 personnes et seulement sous l'accord des deux chefs, et que l'un des chefs soit connecté.
 - N'ont pas le droit de se faire passer pour un membre.
+
+[Retour](./README.md)
