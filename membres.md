@@ -1,3 +1,10 @@
+<style>
+body {
+    background-color: #1e1e1e;
+    color: #e1e1e1;
+}
+</style>
+
 # Voici la liste des membres / autres rôles de la faction **Les Immortels** :
 
 _**Les Chefs**_ :
