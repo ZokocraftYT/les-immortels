@@ -5,45 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coordonnées Sécurisées</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; background-color: #1e1e1e; color: #fff; }
+        body { text-align: center; font-family: Arial, sans-serif; background-color: #1e1e2e; color: #ffffff; }
         .container { margin-top: 50px; }
-        input, button { padding: 10px; margin: 10px; }
-        #output { margin-top: 20px; font-size: 1.2em; white-space: pre-wrap; opacity: 0; transition: opacity 1s ease-in-out; }
+        input { padding: 10px; margin: 10px; }
+        .coords { opacity: 0; transition: opacity 1s ease-in-out; }
+        .show { opacity: 1; }
     </style>
-    <script>
-        async function decryptData() {
-            const encryptedData = "1w9rASKaGAfrqJBy/5hw4OJO9AtZbiDYCloIvg43HlHz0R7yOrjLUTB79I/UTzvkXbzCL+f3cjUIEhFjgkuprIfjRf3kPFY2k4hGlbhvTg+G3KC/B62Xe5jquYA9uR9dEkaUjiV7t+xtKyKBSDfZV9x07UTVquaRU9pvH3uLw5ygO1VpzW1UPuVPwIn05TjKkr8hSui25nIQicgYCKrObDc=";
-            const password = document.getElementById("password").value;
-            
-            try {
-                const key = await window.crypto.subtle.importKey(
-                    "raw", Uint8Array.from(atob(password), c => c.charCodeAt(0)),
-                    { name: "AES-GCM" }, false, ["decrypt"]
-                );
-                
-                const encryptedArray = Uint8Array.from(atob(encryptedData), c => c.charCodeAt(0));
-                const nonce = encryptedArray.slice(0, 12);
-                const ciphertext = encryptedArray.slice(12);
-                
-                const decrypted = await window.crypto.subtle.decrypt(
-                    { name: "AES-GCM", iv: nonce }, key, ciphertext
-                );
-                
-                const outputText = new TextDecoder().decode(decrypted);
-                document.getElementById("output").textContent = outputText;
-                document.getElementById("output").style.opacity = 1;
-            } catch (e) {
-                alert("Mot de passe incorrect ou données corrompues.");
-            }
-        }
-    </script>
 </head>
 <body>
     <div class="container">
         <h1>Coordonnées Sécurisées</h1>
-        <input type="text" id="password" placeholder="Entrez le mot de passe" />
+        <input type="password" id="password" placeholder="Entrez le mot de passe">
         <button onclick="decryptData()">Déchiffrer</button>
-        <p id="output"></p>
+        <pre id="output" class="coords"></pre>
     </div>
+    
+    <script>
+        const encryptedData = "vJzittGfu2OeHluQoTi2asmwVPRABK4vv728m9+KSodQ9e8kRcysv+FYvQ/sHHSk3lnoX2/mMt3Z+bkS5N2ZGs3kSr723AmLQ0OQqWriGB+keNyg1RB8RIdX6g98kyk0+5kPJrcU22ZTiqm06OZTD0WVcBjsl65nj9BNOx5II3o8UEsGaq/GmAfEk71Hc79GFVRXMWx6YqkBpmcKITf0b10=";
+        const salt = Uint8Array.from(atob("ZYWnelLFIzNjuTycwYbk/Q=="), c => c.charCodeAt(0));
+        
+        async function deriveKey(password) {
+            const enc = new TextEncoder();
+            const keyMaterial = await window.crypto.subtle.importKey(
+                "raw", enc.encode(password), { name: "PBKDF2" }, false, ["deriveKey"]
+            );
+            return await window.crypto.subtle.deriveKey(
+                { name: "PBKDF2", salt: salt, iterations: 100000, hash: "SHA-256" },
+                keyMaterial, { name: "AES-GCM", length: 256 }, true, ["decrypt"]
+            );
+        }
+
+        async function decryptData() {
+            const password = document.getElementById("password").value;
+            if (!password) return alert("Mot de passe requis !");
+            
+            const key = await deriveKey(password);
+            const data = atob(encryptedData);
+            const iv = new Uint8Array(12); // IV par défaut (ajouter une IV réelle si besoin)
+            const cipherText = new Uint8Array(data.length);
+            for (let i = 0; i < data.length; i++) cipherText[i] = data.charCodeAt(i);
+            
+            try {
+                const decrypted = await window.crypto.subtle.decrypt(
+                    { name: "AES-GCM", iv: iv }, key, cipherText
+                );
+                document.getElementById("output").textContent = new TextDecoder().decode(decrypted);
+                document.getElementById("output").classList.add("show");
+            } catch (e) {
+                alert("Mot de passe incorrect !");
+            }
+        }
+    </script>
 </body>
 </html>
