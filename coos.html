@@ -21,8 +21,8 @@
     </div>
     
     <script>
-        const encryptedData = "vJzittGfu2OeHluQoTi2asmwVPRABK4vv728m9+KSodQ9e8kRcysv+FYvQ/sHHSk3lnoX2/mMt3Z+bkS5N2ZGs3kSr723AmLQ0OQqWriGB+keNyg1RB8RIdX6g98kyk0+5kPJrcU22ZTiqm06OZTD0WVcBjsl65nj9BNOx5II3o8UEsGaq/GmAfEk71Hc79GFVRXMWx6YqkBpmcKITf0b10=";
-        const salt = Uint8Array.from(atob("ZYWnelLFIzNjuTycwYbk/Q=="), c => c.charCodeAt(0));
+        const encryptedData = "g1B/L4KmIlRBIELFuDdlsIAV0bZBrPAJL7Oiphend9Y4BOSl46zjqlfz3uo6WeA17499LvnabOR+dW6OQtO2mf512a4Jxq5oeK7tEfUbXWtr46izJdiQKSc0qvnJx8KnhJ2kdTC1/ch1pYJOfjbY7/6d13/Zo5ukl8seoRjmvr8fKYS00v6H/br1DPsPg7+muM/uQxhdkW49z46oVg==";
+        const salt = Uint8Array.from(atob("/8hTAxm6rrgiz/2O9by2PA=="), c => c.charCodeAt(0));
         
         async function deriveKey(password) {
             const enc = new TextEncoder();
@@ -41,7 +41,7 @@
             
             const key = await deriveKey(password);
             const data = atob(encryptedData);
-            const iv = new Uint8Array(12); // IV par défaut (ajouter une IV réelle si besoin)
+            const iv = new Uint8Array(12);
             const cipherText = new Uint8Array(data.length);
             for (let i = 0; i < data.length; i++) cipherText[i] = data.charCodeAt(i);
             
