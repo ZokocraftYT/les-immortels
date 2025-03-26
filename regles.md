@@ -1,3 +1,10 @@
+<style>
+body {
+    background-color: #1e1e1e;
+    color: #e1e1e1;
+}
+</style>
+
 # Voici les règles de la faction Les Immortels :
 
 ### 1. Loyauté et Engagements :
