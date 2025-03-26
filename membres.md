@@ -14,6 +14,12 @@ _**Les Membres**_ :
 - Demonios (non officiel)
 - Lililoulou33
 
+_**GRS**_ :
+- zokocraftYT
+
+_**Secretaire**_ :
+- Lililoulou33
+
 _**Alliés**_ :
 - .Skycubb
 - soso_sonic
