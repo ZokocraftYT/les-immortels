@@ -8,6 +8,9 @@ _**Co-Chefs**_ :
 - Remplacent les chefs en leurs absence.
 - Ne peut pas bannir définitivement un membre (ou autre rôle) de la faction. Seulement temporairement.
 
+_**GRS (Gérant et Résponsable du Stockage)**_ :
+- S'occupe du stockage des items et de la gestion des stashs.
+
 _**Membres**_ :
 - Respecter les règles écrites dans le livre.
 
