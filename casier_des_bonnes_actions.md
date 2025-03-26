@@ -17,7 +17,7 @@ _**Moyennes bonnes actions**_ :
 _**Bonnes actions énormes**_ :
 - **iglesias78fr**. <br>Actions :
     - A prété un endroit où se loger le temps de se reposer un peu du raid de Nael.
-    - A accepté la faction Les Immortels de construire une base proche de la sienne (Cet acte restera dans l'histoire de la faction à tout jamais 🥹).
+    - A accepté la faction Les Immortels, de construire une base proche de la sienne (Cet acte restera dans l'histoire de la faction à tout jamais 🥹).
 - **zokocraftYT**. <br>Actions :
     - A construie une énorme salle des coffres.
 - **jamieaugier**. <br>Actions :
