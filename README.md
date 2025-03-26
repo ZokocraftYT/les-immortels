@@ -1,6 +1,7 @@
 # La faction les immortels de Fbft.
-
-<style>background-color: #1e1e1e;</style>
+```css
+background-color: #1e1e1e;
+```
 
 ## Les pages :
 - [Rôles](./roles.md)
