@@ -3,8 +3,7 @@
 _**Petites bonnes actions**_ :
 - **jamieugier**. <br>Actions : 
     - A construie un four automatique.
-    - A construie une poubelle magnifique appellée la sainte-pubelle 🤌.
----
+    - A construie une poubelle magnifique appellée la sainte-pubelle.
 - **lililoulou33**. <br>Actions :
     - A repoussée un joueur (on ne sait pas si cette personne était dans la faction) pour éviter qu'il entre dans la base.
 
