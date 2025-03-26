@@ -12,6 +12,7 @@ _**Moyennes bonnes actions**_ :
     - A construie une salle à AFK.
 - **jamieaugier**. <br>Actions :
     - A améliorer la salle des coffres de zokocraftYT
+    - A fait un ascenseur.
 
 _**Bonnes actions énormes**_ :
 - **iglesias78fr**. <br>Actions :
