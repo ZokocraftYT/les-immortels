@@ -7,5 +7,6 @@ _**Pillage de la base**_ :
 
 _**Jamieaugier**_ :
 - Jamieaugier est un jamielozof !
+- Jamielozof aime faire des tacos parce que c'est trop bon.
 
 [Retour](./README.md)
