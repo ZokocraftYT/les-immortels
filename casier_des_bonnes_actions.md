@@ -6,6 +6,8 @@ _**Petites bonnes actions**_ :
     - A construie une poubelle magnifique appellée la sainte-pubelle.
 - **lililoulou33**. <br>Actions :
     - A repoussée un joueur (on ne sait pas si cette personne était dans la faction) pour éviter qu'il entre dans la base.
+- **Animal7843**. <br>Actions :
+    - A construie une farm à raid mais un peu bancale c'est pour ça qu'elle est là.
 
 _**Moyennes bonnes actions**_ :
 - **lililoulou33**. <br>Actions :
@@ -13,6 +15,8 @@ _**Moyennes bonnes actions**_ :
 - **jamieaugier**. <br>Actions :
     - A améliorer la salle des coffres de zokocraftYT
     - A fait un ascenseur.
+- **Animal7843**. <br>Actions :
+    - A construie vingt mille farms à xp
 
 _**Bonnes actions énormes**_ :
 - **iglesias78fr**. <br>Actions :
@@ -22,5 +26,8 @@ _**Bonnes actions énormes**_ :
     - A construie une énorme salle des coffres.
 - **jamieaugier**. <br>Actions :
     - A construie un échequier dans minecraft.
+- **Animal7843**. <br>Actions :
+    - A farmé beacoup trop de masse pour mon nombre de doigt.
+    - A farmé une shulker entière de totems.
  
 [Retour](./README.md)
