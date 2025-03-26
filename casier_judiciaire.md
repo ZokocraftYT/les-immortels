@@ -6,7 +6,7 @@ _**Avertissements**_ :
 - _SalazarIsAHero_. <br>**Actes** : Grief les panneaux de la base et s'impose comme étant le chef de la faction. Puis, écrit un livre des "nouvelles règles" je cite se croyant chef, et donc pouvant décider des règles. De plus, s'est permit de tuer le chien de zokocraftYT<br> **Raison** : Rien. <br> **Dates** : Non retrouvées. <br> **Heures** : Non retrouvées. <br> **Avertissements** : 1/3.
 
 _**Bannis**_ :
-- _Nael_.<br> **Actes** : Insulte certains membres de la faction à plusieurs reprise, et tu un des chefs de la faction (trois fois). <br> **Justification** : Rien. <br> **Dates** : 09/02/2025. <br> **Heures** : 18:01.
+- _Nael_.<br> **Actes** : Insulte certains membres de la faction à plusieurs reprise, et tu un des chefs de la faction (trois fois). <br> **Justification** : Rien. <br> **Dates** : 09/02/2025. <br> **Heures** : 18:01
 ***
 - _TRADGERlll_.<br> **Actes** : Pillage la base à de nombreuses reprises. <br> **Justification** : Rien. <br> **Dates** : Du 12/03/2025 au 13/03/2025. <br> **Heures** : Non retrouvées.
 
