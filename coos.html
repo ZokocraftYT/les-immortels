@@ -3,58 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coordonnées Sécurisées</title>
-    <style>
-        body { text-align: center; font-family: Arial, sans-serif; background-color: #1e1e2e; color: #ffffff; }
-        .container { margin-top: 50px; }
-        input { padding: 10px; margin: 10px; }
-        .coords { opacity: 0; transition: opacity 1s ease-in-out; }
-        .show { opacity: 1; }
-    </style>
+    <title>Coordonnées</title>
 </head>
 <body>
     <div class="container">
-        <h1>Coordonnées Sécurisées</h1>
-        <input type="password" id="password" placeholder="Entrez le mot de passe">
-        <button onclick="decryptData()">Déchiffrer</button>
-        <pre id="output" class="coords"></pre>
+        <h1>41 74 74 65 6E 64 73 2C 20 74 27 61 73 20 76 72 61 69 6D 65 6E 74 20 63 72 75 20 71 75 65 20 6A 27 61 6C 6C 61 69 73 20 6D 65 74 74 72 65 20 6C 65 73 20 63 6F 6F 73 20 64 69 72 65 63 74 20 65 6E 20 70 75 62 6C 69 63 20 63 6F 6D 6D 65 20 E7 61 20 3F 20 4A 65 20 73 61 69 73 20 71 75 65 20 6A 65 20 73 75 69 73 20 64 E9 62 69 6C 65 20 6D 61 69 73 20 70 61 73 20 E0 20 63 65 20 70 6F 69 6E 74 20 6D 64 72 72 20 21</h1>
     </div>
-    
-    <script>
-        const encryptedData = "g1B/L4KmIlRBIELFuDdlsIAV0bZBrPAJL7Oiphend9Y4BOSl46zjqlfz3uo6WeA17499LvnabOR+dW6OQtO2mf512a4Jxq5oeK7tEfUbXWtr46izJdiQKSc0qvnJx8KnhJ2kdTC1/ch1pYJOfjbY7/6d13/Zo5ukl8seoRjmvr8fKYS00v6H/br1DPsPg7+muM/uQxhdkW49z46oVg==";
-        const salt = Uint8Array.from(atob("/8hTAxm6rrgiz/2O9by2PA=="), c => c.charCodeAt(0));
-        
-        async function deriveKey(password) {
-            const enc = new TextEncoder();
-            const keyMaterial = await window.crypto.subtle.importKey(
-                "raw", enc.encode(password), { name: "PBKDF2" }, false, ["deriveKey"]
-            );
-            return await window.crypto.subtle.deriveKey(
-                { name: "PBKDF2", salt: salt, iterations: 100000, hash: "SHA-256" },
-                keyMaterial, { name: "AES-GCM", length: 256 }, true, ["decrypt"]
-            );
-        }
-
-        async function decryptData() {
-            const password = document.getElementById("password").value;
-            if (!password) return alert("Mot de passe requis !");
-            
-            const key = await deriveKey(password);
-            const data = atob(encryptedData);
-            const iv = new Uint8Array(12);
-            const cipherText = new Uint8Array(data.length);
-            for (let i = 0; i < data.length; i++) cipherText[i] = data.charCodeAt(i);
-            
-            try {
-                const decrypted = await window.crypto.subtle.decrypt(
-                    { name: "AES-GCM", iv: iv }, key, cipherText
-                );
-                document.getElementById("output").textContent = new TextDecoder().decode(decrypted);
-                document.getElementById("output").classList.add("show");
-            } catch (e) {
-                alert("Mot de passe incorrect !");
-            }
-        }
-    </script>
 </body>
 </html>
