@@ -1,3 +1,10 @@
+<style>
+body {
+    background-color: #1e1e1e;
+    color: #e1e1e1;
+}
+</style>
+
 # Voici le casier des bonnes actions de la faction **Les Immortels** :
 
 _**Petites bonnes actions**_ :
