@@ -3,86 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accès Protégé</title>
+    <title>Coordonnées Sécurisées</title>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background-color: #f4f4f4;
-    }
-    
-    #login-container, #content-container {
-        background: white;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        text-align: center;
-    }
-    
-    input[type="password"] {
-        padding: 10px;
-        margin: 10px 0;
-        width: calc(100% - 22px);
-        border-radius: 5px;
-        border: 1px solid #ccc;
-    }
-    
-    button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        background-color: #5cb85c;
-        color: white;
-        cursor: pointer;
-    }
-    
-    button:hover {
-        background-color: #4cae4c;
-    }
-    
-    #error-message {
-        color: red;
-    }
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #1e1e1e; color: #fff; }
+        .container { margin-top: 50px; }
+        input, button { padding: 10px; margin: 10px; }
+        #output { margin-top: 20px; font-size: 1.2em; white-space: pre-wrap; opacity: 0; transition: opacity 1s ease-in-out; }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+        async function decryptData() {
+            const encryptedData = "1w9rASKaGAfrqJBy/5hw4OJO9AtZbiDYCloIvg43HlHz0R7yOrjLUTB79I/UTzvkXbzCL+f3cjUIEhFjgkuprIfjRf3kPFY2k4hGlbhvTg+G3KC/B62Xe5jquYA9uR9dEkaUjiV7t+xtKyKBSDfZV9x07UTVquaRU9pvH3uLw5ygO1VpzW1UPuVPwIn05TjKkr8hSui25nIQicgYCKrObDc=";
+            const password = document.getElementById("password").value;
+            
+            try {
+                const key = await window.crypto.subtle.importKey(
+                    "raw", Uint8Array.from(atob(password), c => c.charCodeAt(0)),
+                    { name: "AES-GCM" }, false, ["decrypt"]
+                );
+                
+                const encryptedArray = Uint8Array.from(atob(encryptedData), c => c.charCodeAt(0));
+                const nonce = encryptedArray.slice(0, 12);
+                const ciphertext = encryptedArray.slice(12);
+                
+                const decrypted = await window.crypto.subtle.decrypt(
+                    { name: "AES-GCM", iv: nonce }, key, ciphertext
+                );
+                
+                const outputText = new TextDecoder().decode(decrypted);
+                document.getElementById("output").textContent = outputText;
+                document.getElementById("output").style.opacity = 1;
+            } catch (e) {
+                alert("Mot de passe incorrect ou données corrompues.");
+            }
+        }
+    </script>
 </head>
 <body>
-    <div id="login-container">
-        <h2>Veuillez entrer le mot de passe</h2>
-        <input type="password" id="password" placeholder="Mot de passe">
-        <button onclick="checkPassword()">Soumettre</button>
-        <p id="error-message"></p>
+    <div class="container">
+        <h1>Coordonnées Sécurisées</h1>
+        <input type="text" id="password" placeholder="Entrez le mot de passe" />
+        <button onclick="decryptData()">Déchiffrer</button>
+        <p id="output"></p>
     </div>
-    <div id="content-container" style="display: none;">
-        <h2>Informations Sécurisées</h2>
-        <p id="secret-info"></p>
-    </div>
-    <a href="./README.md">Retour</a>
-    <script>
-      const correctPassword = '&mdpHEHE'; // Le mot de passe
-      const encryptedInfo = 'U2FsdGVkX19KxX6sOZL3+5nWl6H9Z1Y='; // Informations
-      
-      // Fonction pour décrypter les informations
-      function decryptInfo(encryptedText, password) {
-          return CryptoJS.AES.decrypt(encryptedText, password).toString(CryptoJS.enc.Utf8);
-      }
-      
-      // Fonction pour vérifie le mot de passe
-      function checkPassword() {
-          const password = document.getElementById('password').value;
-          if (password === correctPassword) {
-              const decryptedInfo = decryptInfo(encryptedInfo, password);
-              document.getElementById('secret-info').innerHTML = decryptInfo;
-              document.getElementById('login-container').style.display = 'none';
-              document.getElementById('content-container').style.display = 'block';
-          } else {
-              document.getElementById('error-message').innerText = 'Mot de passe incorrect, veuillez réessayer.';
-          }
-      }
-    </script>
 </body>
 </html>
