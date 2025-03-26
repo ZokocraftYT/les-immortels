@@ -1,3 +1,10 @@
+<style>
+body {
+    background-color: #1e1e1e;
+    color: #e1e1e1;
+}
+</style>
+
 # Voici le casier judiciaire des membres de la faction **Les Immortels** :
 
 <h3>RAPPEL : Après trois avertissements, c'est un ban temporaire de 15 jours irl. Après trois ban tempos, c'est un ban def et les ban tempos s'allongent, voici l'echelle : 1er : 15 jours | 2eme : 30 jours | 3eme : 60 jours | Ban def. Si actes graves, ban à vie d'un coup (exemple : trahison).</h3>
