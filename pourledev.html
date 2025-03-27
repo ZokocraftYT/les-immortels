@@ -1,33 +1,72 @@
-<DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Des infos utiles pour le dev (zokocraftYT)</title>
     <meta charset="UTF-8">
     <style>
-      /* dailleurs le style c pas pour tradgerlll, zoototo ou nael, surtout nael... */
+      /* d'ailleurs le style c'est pas pour tradgerlll, zoototo ou nael, surtout nael... */
       body {
         background-color: #1e1e1e;
         color: #e1e1e1;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      h1 {
+        color: #d40f64;
+        margin-bottom: 20px;
+      }
+      p {
+        margin: 20px;
+        text-align: center;
       }
       a {
         color: #d40f64;
       }
+      input[type="text"] {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+      button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #d40f64;
+        color: #e1e1e1;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: #b00f4f;
+      }
     </style>
   </head>
   <body>
+    <h1>Des infos utiles pour le dev (zokocraftYT)</h1>
     <p>La couleur de fond: #1e1e1e. La couleur du texte: #e1e1e1. La couleur des hypertexts: #d40f64</p>
-    <input type="text" id="usrname">
-    <button id="sub">Donner</button>
+    <div>
+      <input type="text" id="usrname" placeholder="Entrez votre nom">
+      <button id="sub">Donner</button>
+    </div>
     <script>
       const usrname = document.getElementById("usrname");
       const sub = document.getElementById("sub");
 
       function ver() {
-        if (usrname.toLowerCase() === "animal7843" || "animal") {
+        if (usrname.value.toLowerCase() === "animal7843" || usrname.value.toLowerCase() === "animal") {
           alert("cc animal ^^ c zoko mais jsp ce que tu fouts la c mon repere pour coder le site !");
         }
         // Je continuerais quand il sera pas 4h du mat et que je serai pas sur tel
-      };
+      }
+
+      sub.addEventListener("click", ver);
     </script>
   </body>
 </html>
