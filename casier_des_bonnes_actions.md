@@ -15,7 +15,7 @@ _**Petites bonnes actions**_ :
     - A construie un four automatique.
     - A construie une poubelle magnifique appellée la sainte-pubelle.
 - **lililoulou33**. <br>Actions :
-    - A repoussée un joueur (on ne sait pas si cette personne était dans la faction) pour éviter qu'il entre dans la base.
+    - A repoussé un joueur (on ne sait pas si cette personne était dans la faction) pour éviter qu'il entre dans la base.
 - **Animal7843**. <br>Actions :
     - A construie une farm à raid mais un peu bancale c'est pour ça qu'elle est là.
 
@@ -37,7 +37,7 @@ _**Bonnes actions énormes**_ :
 - **jamieaugier**. <br>Actions :
     - A construie un échequier dans minecraft.
 - **Animal7843**. <br>Actions :
-    - A farmé beacoup trop de masse pour mon nombre de doigt.
+    - A farmé beacoup trop de masses pour mon nombre de doigt.
     - A farmé une shulker entière de totems.
  
 [Retour](./README.md)
