@@ -4,10 +4,10 @@
 body {
     background-color: #1e1e1e;
     color: #e1e1e1;
-    text-sier: 50px;
 }
 a {
     color: #d40f64;
+    text-size: 50px;
 }
 </style>
 <title>Les Immortels | Site Officiel</title>
