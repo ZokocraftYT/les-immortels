@@ -7,7 +7,7 @@ body {
 }
 a {
     color: #d40f64;
-    font-size: 30px;
+    font-size: 25px;
 }
 </style>
 <title>Les Immortels | Site Officiel</title>
