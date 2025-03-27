@@ -60,9 +60,7 @@
       const usrname = document.getElementById("usrname"); // Le username
       const sub = document.getElementById("sub"); // Le bouton
 
-      // Définition de la fonction de vérification
-      function ver() {
-
+      sub.addEventListener("click", () => {
         /* Vérification que c'est pas Animal qui se montre... */
         if (usrname.value.toLowerCase() === "animal7843" || usrname.value.toLowerCase() === "animal") {
           alert("cc animal ^^ c zoko mais jsp ce que tu fouts la c mon repere pour coder le site !");
@@ -90,10 +88,8 @@
         /* J'AI DIT ARRÊTE HEUU ! */
         else {
           alert("Au cas où t'as pas compris, faut mettre ton pseudo minecraft");
-        };
-      }
-
-      sub.addEventListener("click", ver());
+        }; 
+      });
     </script>
   </body>
 </html>
