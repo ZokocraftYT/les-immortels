@@ -16,6 +16,6 @@ a {
 - [Infos Importantes](./important.md)
 - [Casier judiciaire](./casier_judiciaire.md)
 - [Casier des bonnes Actions](./casier_des_bonnes_actions.md)
-- [Règlement](./regles.md)
+- [Règlement](./regles.html)
 - [Coos](./coos.html)
 - [Pour le développeur (pas fini. edit: ok, vrm pas fini 🤣)](./pourledev.html)
