@@ -18,3 +18,4 @@ a {
 - [Casier des bonnes Actions](./casier_des_bonnes_actions.md)
 - [Règlement](./regles.md)
 - [Coos](./coos.html)
+- [Pour le développeur (pas fini)](./pourledev.html)
