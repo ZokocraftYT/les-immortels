@@ -6,11 +6,14 @@ body {
 a {
     color: #d40f64;
 }
+h3 {
+    color: #154eb0;
+}
 </style>
 
 # Voici les règles de la faction Les Immortels :
 
-### <style>color: #0000ff;</style> 1. Loyauté et Engagements :
+### 1. Loyauté et Engagements :
 - A. Chaque membre s'engage à respecter et protéger les intérêts de la faction.
 - B. Aucune trahison ne sera tolérée (vol, leak de coords, team avec un ennemi).
 - C. Toute personne surprise en train de coopérer avec un ennemi sera considérée comme un traître.
