@@ -9,6 +9,7 @@ a {
     color: #d40f64;
 }
 </style>
+<title>Les Immortels | Site Officiel</title>
 
 ## Les pages :
 - [Rôles](./roles.html)
