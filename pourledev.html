@@ -56,17 +56,40 @@
       <button id="sub">Donner</button>
     </div>
     <script>
-      const usrname = document.getElementById("usrname");
-      const sub = document.getElementById("sub");
+      // Les pitites variables qui carient :D
+      const usrname = document.getElementById("usrname"); // Le username
+      const sub = document.getElementById("sub"); // Le bouton
 
+      // Définition de la fonction de vérification
       function ver() {
+
+        /* Vérification que c'est pas Animal qui se montre... */
         if (usrname.value.toLowerCase() === "animal7843" || usrname.value.toLowerCase() === "animal") {
           alert("cc animal ^^ c zoko mais jsp ce que tu fouts la c mon repere pour coder le site !");
         }
         // Je continuerais quand il sera pas 4h du mat et que je serai pas sur tel
+
+        // Dcp, il est 7h44 et je continue ;D
+
+        /* La même pour igle */
+        elif (usrname.value.toLowerCase() === "iglesias79fr" || "iglesias" || "igle" || "maximeg12") {
+          alert("cc igesias ! ca va ? c zoko qui a programmé ca au cas où tu rentrerais ton pseudo :D");
+        }
+        /* Puis pour jamie */
+        elif (usrname.value.toLowerCase() === "jamieaugier" || "jamie") {
+          alert("salut jamie :D ! Ca va ? Tu redstone bien ? Tu répondra essential okk ?");
+        }
+        /* Puis lililoulou33 */
+        elif (usrname.value.toLowerCase() === "lililoulou33" || "lililoulou") {
+          alert("bonjour lililoulou33 ! Ca va ?");
+        /* Arrête de regarder les commentaires, le code est pour coder, pas pour lire XDD */
+        }
+        elif (usrname.value.toLowerCase() === "zokocraft" || "zokocraft_yt" || "zokocraftyt") {
+          alert("mais heuuuu ! c'est mon profile :U !");
+        }
       }
 
-      sub.addEventListener("click", ver);
+      sub.addEventListener("click", ver());
     </script>
   </body>
 </html>
