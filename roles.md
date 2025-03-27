@@ -3,6 +3,7 @@ body {
     background-color: #1e1e1e;
     color: #e1e1e1;
 }
+a { color: #d40f64; }
 </style>
 
 # Définitions des rôles de la faction **Les Immortels** :
