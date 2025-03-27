@@ -7,7 +7,7 @@ a {
     color: #d40f64;
 }
 h3 {
-    color: #154eb0;
+    color: #0c910e;
 }
 </style>
 
