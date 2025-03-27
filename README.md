@@ -19,4 +19,3 @@ a {
 - [Casier des bonnes Actions](./casier_des_bonnes_actions.html)
 - [Règlement](./regles.html)
 - [Coos](./coos.html)
-- [Pour le développeur (pas fini. edit: ok, vrm pas fini 🤣)](./pourledev.html)
