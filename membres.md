@@ -18,7 +18,7 @@ _**Les Co-Chefs**_ :
 - Iglesias79fr
 
 _**Les Membres**_ :
-- jamiaugier
+- jamieaugier
 - Shunoux
 - SalazarIsAHero
 - Demonios (non officiel)
