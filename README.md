@@ -20,4 +20,3 @@ a {
 - [Casier des bonnes Actions](./casier_des_bonnes_actions.html)
 - [Règlement](./regles.html)
 - [Coos](./coos.html)
-- [Les ID des blocs, ou items de Minecraft](./mc-blocks.html)
