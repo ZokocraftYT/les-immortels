@@ -20,3 +20,4 @@ a {
 - [Casier des bonnes Actions](./casier_des_bonnes_actions.html)
 - [Règlement](./regles.html)
 - [Coos](./coos.html)
+- [Autres](./other.html)
