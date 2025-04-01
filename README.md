@@ -9,6 +9,7 @@ a {
     color: #d40f64;
     font-size: 25px;
     text-decoration: none;
+    transition: 0.3s;
 }
 a:hover {
     color: #fc03a5;
