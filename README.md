@@ -14,7 +14,7 @@ a {
 a:hover {
     color: #fc03a5;
     font-size: 35px;
-    text-decoration: underline , bold;
+    text-decoration: bold;
 }
 </style>
 <title>Les Immortels | Site Officiel</title>
