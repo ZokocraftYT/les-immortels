@@ -8,6 +8,12 @@ body {
 a {
     color: #d40f64;
     font-size: 25px;
+    text-decoration: none;
+}
+a:hover {
+    color: #fc03a5;
+    font-size: 35px;
+    text-decoration: underline , bold;
 }
 </style>
 <title>Les Immortels | Site Officiel</title>
