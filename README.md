@@ -16,6 +16,9 @@ a:hover {
     font-size: 35px;
     text-decoration: bold;
 }
+.header {
+    display: none;
+}
 </style>
 <title>Les Immortels | Site Officiel</title>
 
