@@ -8,7 +8,7 @@ body {
 a {
     color: #d40f64;
     font-size: 25px;
-    text-decoration: none;
+    text-decoration: none !important;
     transition: 0.3s;
 }
 a:hover {
