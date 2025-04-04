@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idées</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #ideas-container {
+            margin: 20px;
+        }
+        .idea {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .idea-title {
+            font-weight: bold;
+        }
+        .idea-actions {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="ideas-container">
+        <h1>Liste des Idées</h1>
+        <div id="ideas-list">
+            <!-- Les idées seront ajoutées ici dynamiquement -->
+        </div>
+        <button onclick="openIdeaForm()">Ajouter une idée</button>
+    </div>
+
+    <!-- Boîte de dialogue pour ajouter une nouvelle idée -->
+    <div id="idea-form-dialog" style="display:none;">
+        <h2>Ajouter une Idée</h2>
+        <form id="idea-form" onsubmit="addIdea(event)">
+            <label for="username">Nom d'utilisateur (Pseudos) :</label>
+            <input type="text" id="username" name="username" required><br><br>
+            <label for="idea">Idée :</label>
+            <input type="text" id="idea" name="idea" required><br><br>
+            <label for="description">Description (Optionnel) :</label>
+            <textarea id="description" name="description"></textarea><br><br>
+            <button type="submit">Ajouter</button>
+            <button type="button" onclick="closeIdeaForm()">Annuler</button>
+        </form>
+    </div>
+
+    <script>
+        const repoOwner = 'ZokocraftYT';
+        const repoName = 'les-immortels';
+        const apiBaseUrl = `https://api.github.com/repos/${repoOwner}/${repoName}`;
+
+        function openIdeaForm() {
+            document.getElementById('idea-form-dialog').style.display = 'block';
+        }
+
+        function closeIdeaForm() {
+            document.getElementById('idea-form-dialog').style.display = 'none';
+        }
+
+        async function addIdea(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const idea = document.getElementById('idea').value;
+            const description = document.getElementById('description').value;
+
+            const newIdea = { username, idea, description };
+
+            const ideas = await fetchIdeas();
+            ideas.push(newIdea);
+
+            const content = JSON.stringify(ideas, null, 2);
+            const sha = await getFileSha('ideas.json');
+
+            await updateFile('ideas.json', content, sha);
+
+            loadIdeas();
+            closeIdeaForm();
+        }
+
+        async function fetchIdeas() {
+            const response = await fetch(`${apiBaseUrl}/contents/ideas.json`);
+            const data = await response.json();
+            const content = atob(data.content);
+            return JSON.parse(content);
+        }
+
+        async function getFileSha(path) {
+            const response = await fetch(`${apiBaseUrl}/contents/${path}`);
+            const data = await response.json();
+            return data.sha;
+        }
+
+        async function updateFile(path, content, sha) {
+            const token = 'YOUR_GITHUB_PERSONAL_ACCESS_TOKEN';
+            const response = await fetch(`${apiBaseUrl}/contents/${path}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: `Update ${path}`,
+                    content: btoa(content),
+                    sha: sha
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update file');
+            }
+        }
+
+        async function loadIdeas() {
+            const ideasList = document.getElementById('ideas-list');
+            ideasList.innerHTML = '';
+
+            const ideas = await fetchIdeas();
+            ideas.forEach((ideaData) => {
+                const ideaContainer = document.createElement('div');
+                ideaContainer.classList.add('idea');
+
+                const ideaTitle = document.createElement('div');
+                ideaTitle.classList.add('idea-title');
+                ideaTitle.textContent = `${ideaData.username} : ${ideaData.idea}`;
+                ideaContainer.appendChild(ideaTitle);
+
+                if (ideaData.description) {
+                    const ideaDescription = document.createElement('div');
+                    ideaDescription.textContent = ideaData.description;
+                    ideaContainer.appendChild(ideaDescription);
+                }
+
+                ideasList.appendChild(ideaContainer);
+            });
+        }
+
+        // Charger les idées au chargement de la page
+        window.onload = loadIdeas;
+    </script>
+</body>
+</html>
