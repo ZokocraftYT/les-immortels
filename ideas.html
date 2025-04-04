@@ -80,31 +80,31 @@
         }
 
         async function submitIdea(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const idea = document.getElementById('idea').value;
-            const description = document.getElementById('description').value;
-
-            const newIdea = { username, idea, description };
-            const response = await fetch('https://api.github.com/repos/ZokocraftYT/les-immortels/issues', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `token YOUR_GITHUB_PERSONAL_ACCESS_TOKEN`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    title: `Nouvelle idée de ${username}`,
-                    body: JSON.stringify(newIdea, null, 2)
-                })
-            });
-
-            if (response.ok) {
-                alert('Votre idée a été soumise avec succès !');
-                closeIdeaForm();
-            } else {
-                alert('Erreur lors de la soumission de votre idée.');
-            }
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const idea = document.getElementById('idea').value;
+        const description = document.getElementById('description').value;
+    
+        const newIdea = { username, idea, description };
+        const response = await fetch('https://api.github.com/repos/ZokocraftYT/les-immortels/issues', {
+            method: 'POST',
+            headers: {
+                'Authorization': `token THE_TOKEN`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: `Nouvelle idée de ${username}`,
+                body: JSON.stringify(newIdea, null, 2)
+            })
+        });
+    
+        if (response.ok) {
+            alert('Votre idée a été soumise avec succès !');
+            closeIdeaForm();
+        } else {
+            alert('Erreur lors de la soumission de votre idée.');
         }
+    }
 
         window.onload = loadIdeas;
     </script>
