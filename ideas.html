@@ -19,9 +19,6 @@
         .idea-title {
             font-weight: bold;
         }
-        .idea-actions {
-            margin-top: 10px;
-        }
     </style>
 </head>
 <body>
@@ -36,7 +33,7 @@
     <!-- Boîte de dialogue pour ajouter une nouvelle idée -->
     <div id="idea-form-dialog" style="display:none;">
         <h2>Ajouter une Idée</h2>
-        <form id="idea-form" onsubmit="addIdea(event)">
+        <form id="idea-form" onsubmit="submitIdea(event)">
             <label for="username">Nom d'utilisateur (Pseudos) :</label>
             <input type="text" id="username" name="username" required><br><br>
             <label for="idea">Idée :</label>
@@ -49,76 +46,12 @@
     </div>
 
     <script>
-        const repoOwner = 'ZokocraftYT';
-        const repoName = 'les-immortels';
-        const apiBaseUrl = `https://api.github.com/repos/${repoOwner}/${repoName}`;
-
-        function openIdeaForm() {
-            document.getElementById('idea-form-dialog').style.display = 'block';
-        }
-
-        function closeIdeaForm() {
-            document.getElementById('idea-form-dialog').style.display = 'none';
-        }
-
-        async function addIdea(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const idea = document.getElementById('idea').value;
-            const description = document.getElementById('description').value;
-
-            const newIdea = { username, idea, description };
-
-            const ideas = await fetchIdeas();
-            ideas.push(newIdea);
-
-            const content = JSON.stringify(ideas, null, 2);
-            const sha = await getFileSha('ideas.json');
-
-            await updateFile('ideas.json', content, sha);
-
-            loadIdeas();
-            closeIdeaForm();
-        }
-
-        async function fetchIdeas() {
-            const response = await fetch(`${apiBaseUrl}/contents/ideas.json`);
-            const data = await response.json();
-            const content = atob(data.content);
-            return JSON.parse(content);
-        }
-
-        async function getFileSha(path) {
-            const response = await fetch(`${apiBaseUrl}/contents/${path}`);
-            const data = await response.json();
-            return data.sha;
-        }
-
-        async function updateFile(path, content, sha) {
-            const token = 'YOUR_GITHUB_PERSONAL_ACCESS_TOKEN';
-            const response = await fetch(`${apiBaseUrl}/contents/${path}`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `token ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: `Update ${path}`,
-                    content: btoa(content),
-                    sha: sha
-                })
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to update file');
-            }
-        }
-
         async function loadIdeas() {
+            const response = await fetch('https://raw.githubusercontent.com/ZokocraftYT/les-immortels/main/ideas.json');
+            const ideas = await response.json();
             const ideasList = document.getElementById('ideas-list');
             ideasList.innerHTML = '';
 
-            const ideas = await fetchIdeas();
             ideas.forEach((ideaData) => {
                 const ideaContainer = document.createElement('div');
                 ideaContainer.classList.add('idea');
@@ -138,7 +71,41 @@
             });
         }
 
-        // Charger les idées au chargement de la page
+        function openIdeaForm() {
+            document.getElementById('idea-form-dialog').style.display = 'block';
+        }
+
+        function closeIdeaForm() {
+            document.getElementById('idea-form-dialog').style.display = 'none';
+        }
+
+        async function submitIdea(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const idea = document.getElementById('idea').value;
+            const description = document.getElementById('description').value;
+
+            const newIdea = { username, idea, description };
+            const response = await fetch('https://api.github.com/repos/ZokocraftYT/les-immortels/issues', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `token YOUR_GITHUB_PERSONAL_ACCESS_TOKEN`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: `Nouvelle idée de ${username}`,
+                    body: JSON.stringify(newIdea, null, 2)
+                })
+            });
+
+            if (response.ok) {
+                alert('Votre idée a été soumise avec succès !');
+                closeIdeaForm();
+            } else {
+                alert('Erreur lors de la soumission de votre idée.');
+            }
+        }
+
         window.onload = loadIdeas;
     </script>
 </body>
