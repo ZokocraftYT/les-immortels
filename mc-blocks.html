@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -3787,29 +3787,46 @@
         const rows = document.querySelectorAll("#rows .row");
 
         function searchItems() {
-        const search = searchInput.value.trim().toLowerCase();
+            const search = searchInput.value.trim().toLowerCase();
 
-        rows.forEach(row => {
-            const idElement = row.querySelector(".id");
-            const nameElement = row.querySelector(".name");
+            rows.forEach(row => {
+                const idElement = row.querySelector(".id");
+                const nameElement = row.querySelector(".name");
 
-            if (!idElement || !nameElement) return;
+                if (!idElement || !nameElement) return;
 
-            const id = idElement.textContent.trim().toLowerCase();
-            const name = nameElement.textContent.trim().toLowerCase();
+                const id = idElement.textContent.trim().toLowerCase();
+                const name = nameElement.textContent.trim().toLowerCase();
 
-            if (!search) {
-            row.style.display = "";
-            return;
+                row.style.display = "none";
+
+                if (!search) {
+                row.style.display = "";
+                return;
+                }
+
+                // Est-ce que la recherche est un ID ? Ex : 2 ou 17:2
+                const isIdSearch = /^\d+(:\d+)?$/.test(search);
+
+                if (isIdSearch) {
+                // Cas 1 : match exact
+                if (id === search) {
+                    row.style.display = "";
+                }
+                // Cas 2 : match de type 2:...
+                else if (id.startsWith(search + ":")) {
+                    row.style.display = "";
+                }
+                // Sinon on ne l’affiche pas
+                } else {
+                // Recherche normale par nom
+                if (name.includes(search)) {
+                    row.style.display = "";
+                }
+                }
+            });
             }
 
-            // On check dans les deux : ID ET nom
-            const matchID = id.includes(search);
-            const matchName = name.includes(search);
-
-            row.style.display = matchID || matchName ? "" : "none";
-        });
-        }
 
 
         // Détecter Entrée
