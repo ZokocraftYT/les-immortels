@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -3764,6 +3764,11 @@
     </tr>
 </table>
 
+<div id="suggestion-box" style="display: none; margin-top: 10px; font-style: italic; color: #666;">
+    ok frérot, j’ai rien trouvé, mais ptêt ça t’intéresse :
+</div>
+  
+
     </div>
     <div id="footer">
     </div>
@@ -3788,6 +3793,10 @@
 
         function searchItems() {
             const search = searchInput.value.trim().toLowerCase();
+            const isIdSearch = /^\d+(:\d+)?$/.test(search);
+
+            const exactMatches = [];
+            const suggestions = [];
 
             rows.forEach(row => {
                 const idElement = row.querySelector(".id");
@@ -3805,28 +3814,37 @@
                 return;
                 }
 
-                // Est-ce que la recherche est un ID ? Ex : 2 ou 17:2
-                const isIdSearch = /^\d+(:\d+)?$/.test(search);
-
+                // Recherche par ID
                 if (isIdSearch) {
-                // Cas 1 : match exact
-                if (id === search) {
-                    row.style.display = "";
+                if (id === search || id.startsWith(search + ":")) {
+                    exactMatches.push(row);
+                } else if (id.includes(search)) {
+                    suggestions.push(row);
                 }
-                // Cas 2 : match de type 2:...
-                else if (id.startsWith(search + ":")) {
-                    row.style.display = "";
-                }
-                // Sinon on ne l’affiche pas
-                } else {
-                // Recherche normale par nom
+                } 
+                // Recherche par nom
+                else {
                 if (name.includes(search)) {
-                    row.style.display = "";
+                    exactMatches.push(row);
+                } else if (name.startsWith(search[0]) || name.includes(search.slice(0, 2))) {
+                    suggestions.push(row);
                 }
                 }
             });
-            }
 
+            // Affichage
+            if (exactMatches.length > 0) {
+                exactMatches.forEach(row => (row.style.display = ""));
+                suggestionBox.style.display = "none";
+            } else {
+                if (suggestions.length > 0) {
+                suggestions.forEach(row => (row.style.display = ""));
+                showSuggestionsMessage(true);
+                } else {
+                showSuggestionsMessage(false);
+                }
+            }
+        }
 
 
         // Détecter Entrée
@@ -3836,6 +3854,19 @@
                 searchItems();
             }
         });
+
+        const suggestionBox = document.getElementById("suggestion-box");
+
+        function showSuggestionsMessage(hasSuggestions) {
+            if (hasSuggestions) {
+                suggestionBox.textContent = "Votre recherche n'existe pas. Voici cependant ce qui pourrait correspondre :";
+                suggestionBox.style.display = "block";
+            } else {
+                suggestionBox.textContent = "Aucun résultat trouvé, même parmi les suggestions...";
+                suggestionBox.style.display = "block";
+            }
+        }
+
 
         /* 
         Ajout potentiel dans le futur d'une recherche en direct pendant que l'on tape.
