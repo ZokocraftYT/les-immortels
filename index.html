@@ -55,3 +55,62 @@ h2 {
         <li><a href="./other.html" style="text-decoration: none;">Autres</a></li>
     </ul>
 </div>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+
+<script>
+  // Ton config Firebase (remplace avec TES INFOS depuis la console Firebase)
+  const firebaseConfig = {
+    apiKey: "TA_CLE_API",
+    authDomain: "TON_PROJET.firebaseapp.com",
+    projectId: "TON_PROJET_ID",
+    storageBucket: "TON_PROJET.appspot.com",
+    messagingSenderId: "XXXXXXXX",
+    appId: "1:XXXXXXXX:web:XXXXXXXX"
+  };
+
+  // Init Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  const auth = firebase.auth();
+
+  // UI
+  const container = document.querySelector(".container");
+  const loginBtn = document.createElement("button");
+  const logoutBtn = document.createElement("button");
+
+  loginBtn.textContent = "Se connecter avec Google";
+  logoutBtn.textContent = "Se déconnecter";
+  loginBtn.style = logoutBtn.style = "margin: 20px; padding: 10px; font-size: 18px; cursor: pointer; background-color: #d40f64; border: none; color: white; border-radius: 5px;";
+
+  // Vérifie l’état de connexion
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      console.log("Connecté :", user.displayName);
+      if (!document.body.contains(logoutBtn)) {
+        container.insertBefore(logoutBtn, container.firstChild);
+      }
+    } else {
+      console.log("Déconnecté");
+      if (!document.body.contains(loginBtn)) {
+        container.insertBefore(loginBtn, container.firstChild);
+      }
+      container.innerHTML = "<h1>Veuillez vous connecter pour accéder au contenu.</h1>";
+      container.appendChild(loginBtn);
+    }
+  });
+
+  // Connexion Google
+  loginBtn.onclick = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider).catch(console.error);
+  };
+
+  // Déconnexion
+  logoutBtn.onclick = () => {
+    auth.signOut();
+    location.reload(); // Recharge la page après déco
+  };
+</script>
