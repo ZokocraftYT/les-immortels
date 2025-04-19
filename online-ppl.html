@@ -25,40 +25,17 @@
             padding-bottom: 10px;
         }
 
-        h2 {
-            color: #0c910e;
-            font-size: 1.6rem;
-            margin-top: 30px;
-            border-bottom: 1px solid #0c910e;
-            padding-bottom: 5px;
-        }
-
         a {
             color: #d40f64;
             text-decoration: none;
             transition: 0.3s;
             font-size: 30px;
         }
-        
+
         a:hover {
             color: #fc03a5;
-            text-decoration: underline, bold;
+            text-decoration: underline;
             font-size: 40px;
-        }
-
-        .info-box {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
-        }
-
-        .info-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #d40f64;
-            margin-bottom: 5px;
         }
 
         ul {
@@ -84,10 +61,28 @@
         button:hover {
             background-color: #b00d50;
         }
+
+        .input-container {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #555;
+            width: 200px;
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
     <h1>Les gens en ligne sur le serveur</h1>
+
+    <div class="input-container">
+        <label for="server-ip">IP du serveur:</label>
+        <input type="text" id="server-ip" value="fbft.fr">
+        <button onclick="refreshNow()">Mettre à jour</button>
+    </div>
 
     <h3>Les joueurs en ligne sont : <span id="player-count">?</span></h3>
     <h3>La liste des joueurs :</h3>
@@ -95,10 +90,12 @@
 
     <hr>
     <a href="https://zokocraftyt.github.io/les-immortels/other.html">Retour</a>
+
     <script>
+        let currentServerIP = document.getElementById("server-ip").value;
+
         async function fetchMinecraftServerStatus() {
-            const serverIP = "fbft.fr"; // Remplace par l'IP de ton serveur
-            const apiUrl = `https://api.mcsrvstat.us/2/${serverIP}`;
+            const apiUrl = `https://api.mcsrvstat.us/2/${currentServerIP}`;
 
             try {
                 const response = await fetch(apiUrl);
@@ -106,9 +103,9 @@
 
                 if (data.online) {
                     document.getElementById("player-count").textContent = data.players.online;
-                    
+
                     const playerList = document.getElementById("player-list");
-                    playerList.innerHTML = ""; // Nettoyer la liste avant de la remplir
+                    playerList.innerHTML = "";
 
                     if (data.players.list) {
                         data.players.list.forEach(player => {
@@ -124,14 +121,21 @@
                     document.getElementById("player-list").innerHTML = "<li>Impossible de récupérer les joueurs</li>";
                 }
             } catch (error) {
-                console.error("Erreur en récupérant les infos du serveur :", error);
+                console.error("Erreur :", error);
                 document.getElementById("player-count").textContent = "Erreur";
                 document.getElementById("player-list").innerHTML = "<li>Erreur de connexion</li>";
             }
         }
 
+        function refreshNow() {
+            currentServerIP = document.getElementById("server-ip").value;
+            fetchMinecraftServerStatus();
+        }
+
+        // Premier appel
         fetchMinecraftServerStatus();
-        setInterval(fetchMinecraftServerStatus, 30000); // Rafraîchit toutes les 30 secondes
+        // Refresh toutes les 5 secondes
+        setInterval(fetchMinecraftServerStatus, 5000);
     </script>
 </body>
 </html>
