@@ -102,7 +102,7 @@
                 const data = await response.json();
 
                 if (data.online) {
-                    document.getElementById("player-count").textContent = data.players.online;
+                    document.getElementById("player-count").textContent = data.players.online - 1;
 
                     const playerList = document.getElementById("player-list");
                     playerList.innerHTML = "";
