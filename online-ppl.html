@@ -89,7 +89,7 @@
     <ul id="player-list"></ul>
 
     <hr>
-    <p><p style="color:red;">Mise à jour :</p> Nombre de joueurs -1 pour éliminer 3b3bot.</p>
+    <p><p style="color:red;">Mise à jour :</p> Nombre de joueurs -2 pour éliminer 3b3bot et AstroXCRAZY.</p>
 
     <hr>
     <a href="https://zokocraftyt.github.io/les-immortels/other.html">Retour</a>
@@ -105,7 +105,7 @@
                 const data = await response.json();
 
                 if (data.online) {
-                    document.getElementById("player-count").textContent = data.players.online - 1;
+                    document.getElementById("player-count").textContent = data.players.online - 2;
 
                     const playerList = document.getElementById("player-list");
                     playerList.innerHTML = "";
