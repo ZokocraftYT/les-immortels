@@ -37,7 +37,7 @@
             font-size: 1.1em;
             margin: 25px 0 10px 0;
         }
-        .vote-btn {
+        .vote-btn, .unvote-btn {
             background: #d40f64;
             border: none;
             color: #fff;
@@ -47,11 +47,39 @@
             width: 70px;
             height: 70px;
             margin: 0 20px;
-            transition: background 0.2s, transform 0.2s;
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            outline: none;
+            box-shadow: 0 0 10px #00000040;
+            font-family: Arial, sans-serif;
+            display: inline-block;
+            vertical-align: middle;
+            }
+            .vote-btn:hover, .unvote-btn:hover {
+                background: #fc03a5;
+                transform: scale(1.12);
+            }
+            .vote-btn.disabled, .unvote-btn.disabled {
+                opacity: 0.4;
+                cursor: not-allowed;
+            }
+
+        .unvote-btn {
+            width: auto;
+            height: auto;
+            font-size: 1.1em;
+            border-radius: 30px;
+            margin: 20px 0 0 0;
+            padding: 8px 24px;
+            background: #3e3e3e;
+            color: #fc03a5;
+            border: 2px solid #fc03a5;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+            box-shadow: 0 0 8px #00000040;
         }
-        .vote-btn:hover {
+        .unvote-btn:hover {
             background: #fc03a5;
-            transform: scale(1.12);
+            color: #fff;
+            transform: scale(1.06);
         }
         .disabled {
             opacity: 0.4;
@@ -88,9 +116,9 @@
         const IDEAS = [
             {
                 id: "idee_vote",
-                text: "Alors : <span style='color:#fc03a5'><strong>Que pensez-vous du système de vote ?</strong></span>"
+                text: "Alors : <span style='color:#fc03a5'><strong>Que pensez-vous du système de vote ?</strong></span>"
             },
-            // Ajouter d'autres idées
+            // Ajouter plus d'idées
         ];
 
         // Fonctions pour gérer les votes par idée
@@ -127,10 +155,11 @@
                         <button id="downvoteBtn_${idea.id}" class="vote-btn" title="Je suis contre">👎</button>
                     </div>
                     <div class="votes">
-                        <span id="upvotes_${idea.id}">${votes.up}</span> pour &nbsp;|&nbsp; 
+                        <span id="upvotes_${idea.id}">${votes.up}</span> pour &nbsp;|&nbsp;
                         <span id="downvotes_${idea.id}">${votes.down}</span> contre
                     </div>
                     <div class="message" id="message_${idea.id}"></div>
+                    <button id="unvoteBtn_${idea.id}" class="unvote-btn" style="display:none;">Changer mon vote</button>
                 `;
                 container.appendChild(ideaDiv);
 
@@ -138,6 +167,24 @@
                 const upBtn = document.getElementById("upvoteBtn_" + idea.id);
                 const downBtn = document.getElementById("downvoteBtn_" + idea.id);
                 const messageDiv = document.getElementById("message_" + idea.id);
+                const unvoteBtn = document.getElementById("unvoteBtn_" + idea.id);
+
+                unvoteBtn.onclick = function() {
+                    // Retire l'ancien vote du total
+                    const prevVote = localStorage.getItem("voted_" + idea.id);
+                    const votes = getVotes(idea.id);
+                    if (prevVote === "up" && votes.up > 0) votes.up -= 1;
+                    if (prevVote === "down" && votes.down > 0) votes.down -= 1;
+                    setVotes(idea.id, votes);
+
+                    // Retire l’information de vote
+                    localStorage.removeItem("voted_" + idea.id);
+
+                    // Met à jour l’affichage
+                    document.getElementById("upvotes_" + idea.id).textContent = votes.up;
+                    document.getElementById("downvotes_" + idea.id).textContent = votes.down;
+                    updateButtons();
+                };
 
                 function updateButtons() {
                     if (hasVoted(idea.id)) {
@@ -146,6 +193,14 @@
                         upBtn.disabled = true;
                         downBtn.disabled = true;
                         messageDiv.textContent = "Merci, ton choix a bien été pris en compte !";
+                        unvoteBtn.style.display = ""; // Affiche le bouton
+                    } else {
+                        upBtn.classList.remove("disabled");
+                        downBtn.classList.remove("disabled");
+                        upBtn.disabled = false;
+                        downBtn.disabled = false;
+                        messageDiv.textContent = "";
+                        unvoteBtn.style.display = "none"; // Cache le bouton
                     }
                 }
 
