@@ -1,1 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Vote - Les Immortels</title>
+    <link rel="icon" href="lesimmortelsicone.ico">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #e1e1e1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            width: 40%;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .vote-box {
+            background: #242424;
+            border-radius: 15px;
+            padding: 30px 20px;
+            box-shadow: 0 0 10px #00000080;
+            margin-top: 30px;
+        }
+        .idea {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+        }
+        .votes {
+            font-size: 1.1em;
+            margin: 25px 0 10px 0;
+        }
+        .vote-btn {
+            background: #d40f64;
+            border: none;
+            color: #fff;
+            border-radius: 100px;
+            cursor: pointer;
+            font-size: 2.2em;
+            width: 70px;
+            height: 70px;
+            margin: 0 20px;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .vote-btn:hover {
+            background: #fc03a5;
+            transform: scale(1.12);
+        }
+        .disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .message {
+            margin-top: 15px;
+            color: #7dffb3;
+        }
+        a {
+            color: #d40f64;
+            font-size: 22px;
+            text-decoration: none !important;
+            transition: 0.3s;
+        }
+        a:hover {
+            color: #fc03a5;
+            font-size: 27px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><strong>Vote de la faction Les Immortels</strong></h1>
+        <h2>Donne ton avis !</h2>
+        <div class="vote-box">
+            <!-- MODIFIE CETTE LIGNE POUR CHANGER LA QUESTION -->
+            
+            <h3>Bienvenue dans le centre de votes ! Votez les idées qui apparaîtront !</h3>
+            <!--<div class="idea" id="ideaText">
+                Nouvelle idée : <span style="color:#fc03a5"><strong>Exemple d'idée</strong></span>
+            </div>-->
+            <div>
+                <button id="upvoteBtn" class="vote-btn" title="Je suis pour">👍</button>
+                <button id="downvoteBtn" class="vote-btn" title="Je suis contre">👎</button>
+            </div>
+            <div class="votes">
+                <span id="upvotes">0</span> pour &nbsp;|&nbsp; 
+                <span id="downvotes">0</span> contre
+            </div>
+            <div class="message" id="message"></div>
+        </div>
+        <br>
+        <a href="./index.html">⬅ Retour à l'accueil</a>
+    </div>
 
+    <script>
+        // --- CONFIGURATION ADMIN ---
+        // Modifie l’ID pour chaque nouvelle idée !
+        const IDEA_ID = "salle_vip_2024"; 
+        // Modifie ici le texte de l'idée :
+        const IDEA_TEXT = "Nouvelle idée : <span style='color:#fc03a5'><strong>Créer une salle secrète réservée aux membres VIP</strong></span>";
+        // ----------------------------
+
+        // Initialisation
+        document.getElementById("ideaText").innerHTML = IDEA_TEXT;
+
+        // Stockage local : upvotes et downvotes
+        function getVotes() {
+            return JSON.parse(localStorage.getItem("votes_" + IDEA_ID)) || {up:0, down:0};
+        }
+        function setVotes(votes) {
+            localStorage.setItem("votes_" + IDEA_ID, JSON.stringify(votes));
+        }
+
+        // Vérifie si l’utilisateur a déjà voté
+        function hasVoted() {
+            return localStorage.getItem("voted_" + IDEA_ID) !== null;
+        }
+        function markVoted(type) {
+            localStorage.setItem("voted_" + IDEA_ID, type);
+        }
+
+        // Affiche les votes
+        function updateVotes() {
+            const votes = getVotes();
+            document.getElementById("upvotes").textContent = votes.up;
+            document.getElementById("downvotes").textContent = votes.down;
+        }
+
+        // Désactive les boutons si déjà voté
+        function updateButtons() {
+            if (hasVoted()) {
+                document.getElementById("upvoteBtn").classList.add("disabled");
+                document.getElementById("downvoteBtn").classList.add("disabled");
+                document.getElementById("upvoteBtn").disabled = true;
+                document.getElementById("downvoteBtn").disabled = true;
+                document.getElementById("message").textContent = "Merci, ton choix a bien été pris en compte !";
+            }
+        }
+
+        // Gestion du vote
+        document.getElementById("upvoteBtn").onclick = function () {
+            if (hasVoted()) return;
+            const votes = getVotes();
+            votes.up += 1;
+            setVotes(votes);
+            markVoted("up");
+            updateVotes();
+            updateButtons();
+        };
+        document.getElementById("downvoteBtn").onclick = function () {
+            if (hasVoted()) return;
+            const votes = getVotes();
+            votes.down += 1;
+            setVotes(votes);
+            markVoted("down");
+            updateVotes();
+            updateButtons();
+        };
+
+        // Affichage initial
+        updateVotes();
+        updateButtons();
+    </script>
+</body>
+</html>
