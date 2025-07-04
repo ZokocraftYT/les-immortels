@@ -77,102 +77,106 @@
     <div class="container">
         <h1><strong>Vote de la faction Les Immortels</strong></h1>
         <h2>Donne ton avis ! C'est anonyme !</h2>
-        <div class="vote-box">
-            <!-- MODIFIE CETTE LIGNE POUR CHANGER LA QUESTION -->
-            
-            <h3>Bienvenue dans le centre de votes ! Votez les idées qui apparaîtront !</h3>
-            <p>Les votes seront définitif après une semaine.</p>
-            <!--<div class="idea" id="ideaText">
-                Nouvelle idée : <span style="color:#fc03a5"><strong>Exemple d'idée</strong></span>
-            </div>-->
-            <div class="idea" id="ideaText">
-                Alors : <span style="color:#dc03a5>"><strong>Que pensez vous du système de vote ?</strong></span>
-            </div>
-            <br>
-            <div>
-                <button id="upvoteBtn" class="vote-btn" title="Je suis pour">👍</button>
-                <button id="downvoteBtn" class="vote-btn" title="Je suis contre">👎</button>
-            </div>
-            <div class="votes">
-                <span id="upvotes">0</span> pour &nbsp;|&nbsp; 
-                <span id="downvotes">0</span> contre
-            </div>
-            <div class="message" id="message"></div>
-        </div>
+        <div id="ideas-list"></div>
         <hr>
-        <!-- Autres votes \/ -->
         <br>
         <a href="./index.html">⬅ Retour à l'accueil</a>
     </div>
 
     <script>
-        // --- CONFIGURATION ADMIN ---
-        // Modifie l’ID pour chaque nouvelle idée !
-        const IDEA_ID = "idee_vote"; 
-        // Modifie ici le texte de l'idée :
-        const IDEA_TEXT = "Alors : <span style='color:#fc03a5'><strong>Que pensez vous du système de vote ?</strong></span>";
-        // ----------------------------
+        // Liste des idées à voter
+        const IDEAS = [
+            {
+                id: "idee_vote",
+                text: "Alors : <span style='color:#fc03a5'><strong>Que pensez-vous du système de vote ?</strong></span>"
+            },
+            // Ajouter d'autres idées
+        ];
 
-        // Initialisation
-        document.getElementById("ideaText").innerHTML = IDEA_TEXT;
-
-        // Stockage local : upvotes et downvotes
-        function getVotes() {
-            return JSON.parse(localStorage.getItem("votes_" + IDEA_ID)) || {up:0, down:0};
+        // Fonctions pour gérer les votes par idée
+        function getVotes(ideaId) {
+            return JSON.parse(localStorage.getItem("votes_" + ideaId)) || {up:0, down:0};
         }
-        function setVotes(votes) {
-            localStorage.setItem("votes_" + IDEA_ID, JSON.stringify(votes));
+        function setVotes(ideaId, votes) {
+            localStorage.setItem("votes_" + ideaId, JSON.stringify(votes));
         }
-
-        // Vérifie si l’utilisateur a déjà voté
-        function hasVoted() {
-            return localStorage.getItem("voted_" + IDEA_ID) !== null;
+        function hasVoted(ideaId) {
+            return localStorage.getItem("voted_" + ideaId) !== null;
         }
-        function markVoted(type) {
-            localStorage.setItem("voted_" + IDEA_ID, type);
+        function markVoted(ideaId, type) {
+            localStorage.setItem("voted_" + ideaId, type);
         }
 
-        // Affiche les votes
-        function updateVotes() {
-            const votes = getVotes();
-            document.getElementById("upvotes").textContent = votes.up;
-            document.getElementById("downvotes").textContent = votes.down;
+        // Génère le HTML pour chaque idée
+        function renderIdeas() {
+            const container = document.getElementById("ideas-list");
+            container.innerHTML = "";
+            IDEAS.forEach(idea => {
+                const votes = getVotes(idea.id);
+                const voted = hasVoted(idea.id);
+
+                const ideaDiv = document.createElement("div");
+                ideaDiv.className = "vote-box";
+                ideaDiv.innerHTML = `
+                    <div class="idea" id="ideaText_${idea.id}">
+                        ${idea.text}
+                    </div>
+                    <br>
+                    <div>
+                        <button id="upvoteBtn_${idea.id}" class="vote-btn" title="Je suis pour">👍</button>
+                        <button id="downvoteBtn_${idea.id}" class="vote-btn" title="Je suis contre">👎</button>
+                    </div>
+                    <div class="votes">
+                        <span id="upvotes_${idea.id}">${votes.up}</span> pour &nbsp;|&nbsp; 
+                        <span id="downvotes_${idea.id}">${votes.down}</span> contre
+                    </div>
+                    <div class="message" id="message_${idea.id}"></div>
+                `;
+                container.appendChild(ideaDiv);
+
+                // Gestion du vote
+                const upBtn = document.getElementById("upvoteBtn_" + idea.id);
+                const downBtn = document.getElementById("downvoteBtn_" + idea.id);
+                const messageDiv = document.getElementById("message_" + idea.id);
+
+                function updateButtons() {
+                    if (hasVoted(idea.id)) {
+                        upBtn.classList.add("disabled");
+                        downBtn.classList.add("disabled");
+                        upBtn.disabled = true;
+                        downBtn.disabled = true;
+                        messageDiv.textContent = "Merci, ton choix a bien été pris en compte !";
+                    }
+                }
+
+                upBtn.onclick = function () {
+                    if (hasVoted(idea.id)) return;
+                    const votes = getVotes(idea.id);
+                    votes.up += 1;
+                    setVotes(idea.id, votes);
+                    markVoted(idea.id, "up");
+                    document.getElementById("upvotes_" + idea.id).textContent = votes.up;
+                    document.getElementById("downvotes_" + idea.id).textContent = votes.down;
+                    updateButtons();
+                };
+                downBtn.onclick = function () {
+                    if (hasVoted(idea.id)) return;
+                    const votes = getVotes(idea.id);
+                    votes.down += 1;
+                    setVotes(idea.id, votes);
+                    markVoted(idea.id, "down");
+                    document.getElementById("upvotes_" + idea.id).textContent = votes.up;
+                    document.getElementById("downvotes_" + idea.id).textContent = votes.down;
+                    updateButtons();
+                };
+
+                // Au chargement, si déjà voté, désactive les boutons
+                updateButtons();
+            });
         }
 
-        // Désactive les boutons si déjà voté
-        function updateButtons() {
-            if (hasVoted()) {
-                document.getElementById("upvoteBtn").classList.add("disabled");
-                document.getElementById("downvoteBtn").classList.add("disabled");
-                document.getElementById("upvoteBtn").disabled = true;
-                document.getElementById("downvoteBtn").disabled = true;
-                document.getElementById("message").textContent = "Merci, ton choix a bien été pris en compte !";
-            }
-        }
-
-        // Gestion du vote
-        document.getElementById("upvoteBtn").onclick = function () {
-            if (hasVoted()) return;
-            const votes = getVotes();
-            votes.up += 1;
-            setVotes(votes);
-            markVoted("up");
-            updateVotes();
-            updateButtons();
-        };
-        document.getElementById("downvoteBtn").onclick = function () {
-            if (hasVoted()) return;
-            const votes = getVotes();
-            votes.down += 1;
-            setVotes(votes);
-            markVoted("down");
-            updateVotes();
-            updateButtons();
-        };
-
-        // Affichage initial
-        updateVotes();
-        updateButtons();
+        // Affiche toutes les idées au chargement
+        renderIdeas();
     </script>
 </body>
 </html>
